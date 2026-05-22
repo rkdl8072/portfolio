@@ -91,6 +91,10 @@ function doLogin() {
   const pw    = document.getElementById('login-pw').value;
   const errEl = document.getElementById('login-error');
   if (!id || !pw) { errEl.textContent = '아이디와 비밀번호를 입력해주세요.'; return; }
+
+  // ✅ 항상 최신 유저 목록을 localStorage에서 다시 읽어옴
+  users = JSON.parse(localStorage.getItem('portfolio-users') || '{}');
+
   const user  = users[id];
   if (!user || user.pw !== simpleHash(pw)) { errEl.textContent = '아이디 또는 비밀번호가 틀렸습니다.'; return; }
   currentUser = { id, name: user.name };
